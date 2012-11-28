@@ -14,7 +14,12 @@
 
 * 检查输入是否包含敏感词 `HarmoniousDictionary.clean?(your_input)`
 * 检查包含的敏感词 `HarmoniousDictionary.harmonious_words(your_input)`
-* 替换包含的敏感词为* `HarmoniousDictionary.clean(your_input)`
+* 替换包含的敏感词为* `HarmoniousDictionary.clean(your_input)`* 
+
+**ruby 1.8下使用**
+
+对于rails2系列，请使用1.8的branch，把harmonious_dictionary目录放在vendor/plugin目录下
+
 
 
 ### 原理
