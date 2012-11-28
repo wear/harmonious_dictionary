@@ -1,10 +1,12 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe HarmoniousDictionary do
 
   describe 'segment' do
     it 'should return harmonious word for sentence' do
-      HarmoniousDictionary.harmonious_words('戴秉国在中国').should == '戴秉国'.to_a
+      HarmoniousDictionary.harmonious_words('戴秉国在中国').should == ['戴秉国']
     end
 
     it 'should return english,url and chiese words' do
@@ -28,9 +30,8 @@ describe HarmoniousDictionary do
     HarmoniousDictionary.clean_word_basic('大米').should == '**'
   end
 
-  # it 'should use remote server for segment' do
-  #   HarmoniousDictionary.clean_by_remote('戴秉国在中国').should == '***在中国'
-  # end
-
+  it 'should use remote server for segment' do
+    HarmoniousDictionary.clean_by_remote('戴秉国在中国').should == '***在中国'
+  end
 
 end

@@ -4,8 +4,8 @@ $:.unshift File.expand_path(File.dirname(__FILE__))
 require 'rubygems'
 port = ARGV[0] || 4100 
 
-require File.join(File.dirname(__FILE__), '/../lib/rseg')
-require File.join(File.dirname(__FILE__), '/../lib/app')
+require_relative '../lib/rseg'
+require_relative '../lib/app'
 
 puts "Loading dictionaries, this will take about serveral seconds."
 puts "Please wait a moment..."

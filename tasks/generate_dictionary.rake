@@ -1,4 +1,3 @@
-$KCODE = 'UTF8' 
 require 'yaml'
 
 namespace :harmonious_dictionary do
@@ -16,7 +15,6 @@ namespace :harmonious_dictionary do
     english_dictionary = []
     path = File.join(File.dirname(__FILE__), '../dictionary', 'english_dictionary.txt')
     process_english_words(path,english_dictionary)
-    puts english_dictionary.inspect
     File.open(yaml_path, "wb") {|io| YAML::dump(english_dictionary, io)} 
     puts 'Done'
   end

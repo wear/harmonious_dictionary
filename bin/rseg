@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require File.join(File.dirname(__FILE__), '/../lib/rseg')
+require_relative '../lib/rseg'
 
 input = ARGV[0]
 

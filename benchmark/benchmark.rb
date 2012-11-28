@@ -1,7 +1,9 @@
 require 'rubygems'
 require 'benchmark'
 
-require File.join(File.dirname(__FILE__), '../lib/harmonious_dictionary')
+# 测试前请先把切词服务起起来 bin/rseg_server
+
+require_relative "../lib/harmonious_dictionary"
 
 %w(100 1000 10000).each do |word_count|
   puts "\n  --#{word_count} words string-----"

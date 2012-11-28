@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module RsegFilter
   class Fullwidth
     @@fullwidth_chars = {'１' => '1', '２' => '2', '３' => '3', '４' => '4', '５' => '5', '６' => '6', '７' => '7', '８' => '8',

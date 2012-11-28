@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'rspec'
 require 'harmonious_dictionary'
 
 RSpec.configure do |config|

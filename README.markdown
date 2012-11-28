@@ -5,8 +5,8 @@
 ### 特点
 
 * 速度快，比常规的正则匹配要快10倍以上，具体性能可运行benchmark查看
-* 可以输出检测到的脏词，请看初始
-* 简单，可根据需要方便的调整脏词字库
+* 可以输出检测到的敏感词，请看初始
+* 简单，可根据需要方便的调整敏感词字库
 
 ### 使用
 
@@ -16,11 +16,11 @@
 * 检查包含的敏感词 `HarmoniousDictionary.harmonious_words(your_input)`
 * 替换包含的敏感词为* `HarmoniousDictionary.clean(your_input)`* 
 
+**ruby 1.9下使用**
+
 **ruby 1.8下使用**
 
 对于rails2系列，请使用1.8的branch，把harmonious_dictionary目录放在vendor/plugin目录下
-
-
 
 ### 原理
 

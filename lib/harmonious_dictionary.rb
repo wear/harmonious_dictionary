@@ -1,5 +1,4 @@
-$KCODE='u'
-require 'jcode'
+# encoding: utf-8
 
 require File.join(File.dirname(__FILE__), 'rseg')
 
@@ -38,8 +37,7 @@ class HarmoniousDictionary
 
     def clean_word_basic(word)
       clearn_words = ""
-      # 1.8中文utf8算三个字符
-      (word.size/3).times{  clearn_words << "*" }
+      word.size.times{  clearn_words << "*" }
       clearn_words
     end
 

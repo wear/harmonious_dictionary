@@ -1,4 +1,4 @@
-$KCODE = 'UTF8'
+# encoding: utf-8
 
 require 'singleton'
 require 'net/http'
@@ -33,13 +33,14 @@ class Rseg
     end
     
     def remote_segment(input)
-      begin
-        response = Net::HTTP.post_form(URI.parse('http://127.0.0.1:4100/seg'), :input => input)
+      # begin
+        url = YAML.load(File.read(File.expand_path('config/harmoniours_dictionary.yml')))["url"]
+        response = Net::HTTP.post_form(URI.parse("http://#{url}/seg"), :input => input)
         response.code == '200' ? response.body.split(' ') : 
-            ["Can't connect to http://localhost:4100\nUse rseg_server to start it"]
-      rescue
-        ["Can't connect to http://localhost:4100\nUse rseg_server to start it"]
-      end
+            ["Can't connect to http://#{url}/seg\nUse rseg_server to start it"]
+      # rescue
+        # ["Can't connect to http://#{url}/seg\nUse rseg_server to start it"]
+      # end
     end
   end
 
@@ -57,9 +58,8 @@ class Rseg
   
   def segment
     @words = []
-    #拆分每个字
     @input.chars.each do |origin|
-      char = filter(origin) # 过滤，标记分割词或特殊字符
+      char = filter(origin)
       process(char, origin)
     end
     
@@ -99,7 +99,7 @@ class Rseg
         reset_engines
       else
         reset_engines
-        @words << word if word.is_a?(String) && word.size > 3
+        @words << word if word.is_a?(String) if word.size >= 2
         # 我们只需要脏词完全匹配，不需要检查下文
         # reprocess(word) if word.is_a?(Array)
         # re-process current char
@@ -146,4 +146,5 @@ class Rseg
   def english_yaml_path
     File.read(File.join(File.dirname(__FILE__), '../dictionary/english.yml'))
   end
+
 end
