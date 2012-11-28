@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require File.join(File.dirname(__FILE__), '/../lib/rseg')
+
+input = ARGV[0]
+
+if input.nil? || input == ''
+  puts "Usage: rseg <text>"
+  exit
+end
+
+puts Rseg.remote_segment(input).join(' ').inspect
