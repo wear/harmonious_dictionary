@@ -30,8 +30,7 @@ describe HarmoniousDictionary do
     HarmoniousDictionary.clean_word_basic('大米').should == '**'
   end
 
-  it 'should use remote server for segment' do
-    HarmoniousDictionary.clean_by_remote('戴秉国在中国').should == '***在中国'
-  end
-
+  # it 'should use remote server for segment' do
+  #   HarmoniousDictionary.clean_by_remote('戴秉国在中国').should == '***在中国'
+  # end
 end

@@ -33,14 +33,13 @@ class Rseg
     end
     
     def remote_segment(input)
-      # begin
-        url = YAML.load(File.read(File.expand_path('config/harmoniours_dictionary.yml')))["url"]
-        response = Net::HTTP.post_form(URI.parse("http://#{url}/seg"), :input => input)
+      begin
+        response = Net::HTTP.post_form(URI.parse("http://#{Rseg.instance.remote_url}/seg"), :input => input)
         response.code == '200' ? response.body.split(' ') : 
-            ["Can't connect to http://#{url}/seg\nUse rseg_server to start it"]
-      # rescue
-        # ["Can't connect to http://#{url}/seg\nUse rseg_server to start it"]
-      # end
+            ["Can't connect to http://#{Rseg.instance.remote_url}/seg\nUse rseg_server to start it"]
+      rescue
+        ["Can't connect to http://#{url}/seg\nUse rseg_server to start it"]
+      end
     end
   end
 
@@ -50,6 +49,11 @@ class Rseg
     init_engines
     init_filters
     @english_dictionary = YAML.load(english_yaml_path)
+    @remote_url = nil#YAML.load(File.read(File.expand_path('config/harmoniours_dictionary.yml')))["url"] 
+  end
+
+  def remote_url
+    @remote_url
   end
   
   def input=(input)
@@ -144,7 +148,7 @@ class Rseg
   end
 
   def english_yaml_path
-    File.read(File.join(File.dirname(__FILE__), '../dictionary/english.yml'))
+    File.read(File.join(File.dirname(__FILE__), '../../dictionary/english.yml'))
   end
 
 end

@@ -1,7 +1,7 @@
 module RsegEngine
   class Dict < Engine
     @@root      = nil
-    @@dict_path = File.join(File.dirname(__FILE__), '../../dictionary/harmonious.hash')
+    @@dict_path = File.join(File.dirname(__FILE__), '../../../dictionary/harmonious.hash')
 
     class << self
       def dict_path=(path)
