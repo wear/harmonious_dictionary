@@ -1,0 +1,8 @@
+development:
+  url: 127.0.0.1:4100
+
+test:
+  url: 127.0.0.1:4100
+
+production:
+  url: 127.0.0.1:4100

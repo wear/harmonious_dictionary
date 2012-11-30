@@ -10,6 +10,12 @@ RSpec.configure do |config|
   config.formatter     = 'documentation'
 end
 
+module Rails
+  def self.root
+    File.join File.dirname(__FILE__),'../'
+  end
+end
+
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
 ActiveRecord::Schema.define(:version => 1) do

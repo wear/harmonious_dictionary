@@ -17,11 +17,7 @@ class Rseg
   include RsegEngine
   include RsegFilter
   
-  class << self
-    def dict_path=(path)
-      RsegEngine::Dict.dict_path = path
-    end
-    
+  class << self    
     def segment(input)
       Rseg.instance.input = input
       Rseg.instance.segment
@@ -46,9 +42,10 @@ class Rseg
   def initialize
     @input = ''
     @words = []
+    RsegEngine::Dict.dict_path = chinese_dictionary_path
     init_engines
     init_filters
-    @english_dictionary = YAML.load(english_yaml_path)
+    @english_dictionary = YAML.load(File.read(english_yaml_path))
     @remote_url = nil#YAML.load(File.read(File.expand_path('config/harmoniours_dictionary.yml')))["url"] 
   end
 
@@ -148,7 +145,11 @@ class Rseg
   end
 
   def english_yaml_path
-    File.read(File.join(File.dirname(__FILE__), '../../dictionary/english.yml'))
+    File.join(Rails.root, 'config','harmonious_dictionary','english.yml')
+  end
+
+  def chinese_dictionary_path
+    File.join(Rails.root, 'config','harmonious_dictionary','harmonious.hash')
   end
 
 end

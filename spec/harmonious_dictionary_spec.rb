@@ -6,6 +6,7 @@ describe HarmoniousDictionary do
 
   describe 'segment' do
     it 'should return harmonious word for sentence' do
+      puts Rails.root
       HarmoniousDictionary.harmonious_words('戴秉国在中国').should == ['戴秉国']
     end
 
