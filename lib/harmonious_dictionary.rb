@@ -3,10 +3,8 @@
 require "harmonious_dictionary/rseg"
 require "harmonious_dictionary/version"
 require "harmonious_dictionary/model_additions"
-if defined? Rails
-  require "harmonious_dictionary/railtie" 
-  require 'generators/harmonious_dictionary/setup/setup_generator'
-end
+require "harmonious_dictionary/railtie" if defined? Rails
+   
 
 module HarmoniousDictionary
   def self.clean?(input)

@@ -50,6 +50,6 @@ def hash_path
 end
 
 def yaml_path
-  File.join(Rails.root, 'config','harmonious_dictionary','english.yml')
+  File.join(Rails.root, 'config','harmonious_dictionary','harmonious_english.yml')
 end
 

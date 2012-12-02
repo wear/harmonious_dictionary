@@ -5,8 +5,8 @@ module HarmoniousDictionary
     def validate_harmonious_of(*attr_names)
       configuration = {message:'不能含有敏感词'}
       configuration.update(attr_names.pop) if attr_names.last.is_a?(Hash)
-      validates_each attr_names do |model, attribute, value| 
-        model.errors.add(attribute, configuration[:message]) unless HarmoniousDictionary.clean?(value)
+      validates_each attr_names do |model, attribute, value|
+        model.errors.add(attribute, configuration[:message]) unless clean?(value)
       end
     end
 
@@ -19,7 +19,13 @@ module HarmoniousDictionary
 
       attr_names.each do |attr_name| 
         instance_eval do
-          define_method "#{attr_name}_clean" do; HarmoniousDictionary.clean(self[attr_name.to_sym]); end      
+          define_method "#{attr_name}_clean" do
+            if Rails.configuration.harmonious_dictionary.use_remote_server 
+              HarmoniousDictionary.clean_by_remote(self[attr_name.to_sym])
+            else
+              HarmoniousDictionary.clean(self[attr_name.to_sym])
+            end
+          end  
           alias_method attr_name.to_sym, "#{attr_name}_clean".to_sym
         end
       end
@@ -27,9 +33,16 @@ module HarmoniousDictionary
     
     def setup_callbacks_for(attr_name)
       before_validation do |record|
-        record[attr_name.to_sym] = HarmoniousDictionary.clean(record[attr_name.to_sym])
+        if Rails.configuration.harmonious_dictionary.use_remote_server 
+          record[attr_name.to_sym] = HarmoniousDictionary.clean_by_remote(record[attr_name.to_sym])
+        else
+          record[attr_name.to_sym] = HarmoniousDictionary.clean(record[attr_name.to_sym])
+        end
       end
     end
-    
+
+    def clean?(input)
+       Rails.configuration.harmonious_dictionary.use_remote_server ? HarmoniousDictionary.clean_by_remote?(input) : HarmoniousDictionary.clean?(input)
+    end
   end
 end

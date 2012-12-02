@@ -1,0 +1,63 @@
+#!/usr/bin/env ruby
+$:.unshift File.expand_path(File.dirname(__FILE__))
+
+# begin
+#   require 'harmonious_dictionary'
+# rescue LoadError
+#   require 'rubygems'
+#   require 'harmonious_dictionary'
+# end
+
+require_relative '../lib/harmonious_dictionary/rseg'
+require_relative '../lib/harmonious_dictionary/app'
+
+require 'optparse'
+
+class HarmoniousServer
+  def initialize(argv)
+    @argv = argv
+    @options = {
+      address:'127.0.0.1',
+      port:'4100',
+      environment:'production',
+      dict_dir:'config/harmonious_dictionary'
+    }
+    parser.parse! @argv
+  end
+
+  def parser
+    @parser ||= OptionParser.new do |opts|
+      opts.banner = "Usage: harmonious_dictionary"
+      opts.separator ""
+      opts.separator "Server options:"
+
+      opts.on("-a", "--address HOST", "bind to HOST address " +
+                    "(default: #{@options[:address]})") { |host| @options[:address] = host }
+      opts.on("-p","--port","use PORT (default: #{@options[:port]})") {|port| @options[:port] = port.to_i  }
+      opts.on("-e", "--environment ENV", "App environment " +
+                    "(default: #{@options[:environment]})") { |env| @options[:environment] = env }
+      opts.on("-c", "--dict_dir DIR", "dictionary for harmonious"){ |dir| @options[:dict_dir] = File.expand_path(dir)  }
+
+      opts.separator ""
+      opts.separator "Common options:"
+      opts.on_tail("-h", "--help", "Show this message") { puts opts; exit }
+      opts.on_tail('-v', '--version', "Show version"){ puts HarmoniousDictionary::VERSION; exit }
+    end
+  end
+
+  def run!
+    puts "Loading dictionaries, this will take about serveral seconds."
+    puts "Please wait a moment..."
+    HarmoniousDictionary::Rseg.load(@options[:dict_dir])
+    puts "Dictionaries loaded."
+
+    App.run! :host => @options[:address], :port => @options[:port], :environment => @options[:environment]
+  end
+end
+
+HarmoniousServer.new(ARGV).run!
+
+
+
+# App.run! :host => '127.0.0.1', :port => port, :environment => 'production'
+# exit

@@ -1,5 +1,5 @@
 pkg
 doc
-dictionary
 Manifest
 .DS_Store
+config/harmonious_dictionary/*

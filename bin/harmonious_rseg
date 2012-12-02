@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative '../lib/rseg'
+require_relative '../lib/harmonious_dictionary/rseg'
 
 input = ARGV[0]
 
