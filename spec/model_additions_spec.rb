@@ -44,19 +44,20 @@ describe HarmoniousDictionary::ModelAdditions do
     end
   end
 
-  describe 'use remote' do
-    before(:each) do
-      configuration = double("configuration")
-      @double_harmonious_dictionary = double('harmonious_dictionary')
-      configuration.stub(:harmonious_dictionary){ @double_harmonious_dictionary }
-      @double_harmonious_dictionary.stub(:use_remote_server){ true }
-      Rails.stub(:configuration){configuration}
-    end
+  # 以后再开放
+  # describe 'use remote' do
+  #   before(:each) do
+  #     configuration = double("configuration")
+  #     @double_harmonious_dictionary = double('harmonious_dictionary')
+  #     configuration.stub(:harmonious_dictionary){ @double_harmonious_dictionary }
+  #     @double_harmonious_dictionary.stub(:use_remote_server){ true }
+  #     Rails.stub(:configuration){configuration}
+  #   end
 
-    it 'should validate for harmonious' do
-      # HarmoniousDictionary.should_receive(:clean_by_remote?)
-      # post.errors[:title].should == ['不能含有敏感词']
-    end    
-  end
+  #   it 'should validate for harmonious' do
+  #     HarmoniousDictionary.should_receive(:clean_by_remote?)
+  #     post.errors[:title].should == ['不能含有敏感词']
+  #   end    
+  # end
 end
 

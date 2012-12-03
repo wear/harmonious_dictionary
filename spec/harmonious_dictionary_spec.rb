@@ -32,9 +32,9 @@ describe HarmoniousDictionary do
     end
   end
 
-  describe 'use remote' do
-    it 'should use remote server for segment' do
-      HarmoniousDictionary.clean_by_remote('戴秉国在中国').should == '***在中国'
-    end
-  end
+  # describe 'use remote' do
+  #   it 'should use remote server for segment' do
+  #     HarmoniousDictionary.clean_by_remote('戴秉国在中国').should == '***在中国'
+  #   end
+  # end
 end
