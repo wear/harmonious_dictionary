@@ -2,9 +2,8 @@ module HarmoniousDictionary
   module RsegEngine
     class Dict < Engine    
       def initialize(&block)
-        @root ||= load_dict(block.call)
+        @dict_path = block.call
         @word = ''
-        @node = @root
         super
       end
 
@@ -13,6 +12,9 @@ module HarmoniousDictionary
       end
     
       def process(char)
+        @root ||= load_dict(@dict_path)
+        @node ||= @root
+
         match = false
         word = nil
         

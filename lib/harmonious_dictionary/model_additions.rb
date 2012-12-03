@@ -20,11 +20,11 @@ module HarmoniousDictionary
       attr_names.each do |attr_name| 
         instance_eval do
           define_method "#{attr_name}_clean" do
-            if Rails.configuration.harmonious_dictionary.use_remote_server 
-              HarmoniousDictionary.clean_by_remote(self[attr_name.to_sym])
-            else
+            # if Rails.configuration.harmonious_dictionary.use_remote_server 
+              # HarmoniousDictionary.clean_by_remote(self[attr_name.to_sym])
+            # else
               HarmoniousDictionary.clean(self[attr_name.to_sym])
-            end
+            # end
           end  
           alias_method attr_name.to_sym, "#{attr_name}_clean".to_sym
         end
@@ -33,16 +33,16 @@ module HarmoniousDictionary
     
     def setup_callbacks_for(attr_name)
       before_validation do |record|
-        if Rails.configuration.harmonious_dictionary.use_remote_server 
-          record[attr_name.to_sym] = HarmoniousDictionary.clean_by_remote(record[attr_name.to_sym])
-        else
+        # if Rails.configuration.harmonious_dictionary.use_remote_server 
+          # record[attr_name.to_sym] = HarmoniousDictionary.clean_by_remote(record[attr_name.to_sym])
+        # else
           record[attr_name.to_sym] = HarmoniousDictionary.clean(record[attr_name.to_sym])
-        end
+        # end
       end
     end
 
     def clean?(input)
-       Rails.configuration.harmonious_dictionary.use_remote_server ? HarmoniousDictionary.clean_by_remote?(input) : HarmoniousDictionary.clean?(input)
+       HarmoniousDictionary.clean?(input)
     end
   end
 end

@@ -17,7 +17,7 @@ module HarmoniousDictionary
     include Singleton
     include RsegEngine
     include RsegFilter
-    @@config_dir = nil
+    # @@config_dir = nil
     
     class << self    
       def segment(input)
@@ -26,7 +26,7 @@ module HarmoniousDictionary
       end
       
       def load(dict)
-        @@config_dir = dict
+        # @@config_dir = dict
         HarmoniousDictionary::Rseg.instance
         nil
       end
@@ -45,13 +45,13 @@ module HarmoniousDictionary
     def initialize
       @input = ''
       @words = [] 
-      if @@config_dir.nil?
-        @chinese_dictionary_path = chinese_dictionary_path
-        @english_dictionary = load_english_dictionary(english_yaml_path)
-      else
-        @chinese_dictionary_path = File.join(@@config_dir,'harmonious.hash')
-        @english_dictionary = load_english_dictionary(File.join(@@config_dir,'harmonious_english.yml')) 
-      end
+      # if @@config_dir.nil?
+      @chinese_dictionary_path = chinese_dictionary_path
+      # @english_dictionary = load_english_dictionary(english_yaml_path)
+      # else
+      #   @chinese_dictionary_path = File.join(@@config_dir,'harmonious.hash')
+      #   @english_dictionary = load_english_dictionary(File.join(@@config_dir,'harmonious_english.yml')) 
+      # end
       init_engines
       init_filters
     end
@@ -87,6 +87,7 @@ module HarmoniousDictionary
     def process(char, origin)
       nomatch = true
       word = ''
+      @english_dictionary ||= load_english_dictionary(english_yaml_path)
       
       engines.each do |engine|
         next unless engine.running?

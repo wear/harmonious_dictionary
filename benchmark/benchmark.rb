@@ -1,9 +1,20 @@
 require 'rubygems'
 require 'benchmark'
 
-# 测试前请先把切词服务起起来 bin/rseg_server
+# 测试前现在本地建立词库索引
+# 如需独立服务，测试前请先把切词服务起起来 bin/rseg_server
 
 require_relative "../lib/harmonious_dictionary"
+
+module Rails
+  def self.root
+    File.join File.dirname(__FILE__),'../'
+  end
+
+  def self.env
+    'test'
+  end
+end
 
 %w(100 1000 10000).each do |word_count|
   puts "\n  --#{word_count} words string-----"

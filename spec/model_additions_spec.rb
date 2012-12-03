@@ -22,13 +22,13 @@ describe HarmoniousDictionary::ModelAdditions do
   let(:post) { @post = Post.create title:'戴秉国在中国',body:'戴秉国在中国',note:'戴秉国在中国' }
 
   describe 'use local' do
-    before(:each) do
-      configuration = double("configuration")
-      @double_harmonious_dictionary = double('harmonious_dictionary')
-      configuration.stub(:harmonious_dictionary){ @double_harmonious_dictionary }
-      @double_harmonious_dictionary.stub(:use_remote_server){ false }
-      Rails.stub(:configuration){configuration}
-    end
+    # before(:each) do
+    #   configuration = double("configuration")
+    #   @double_harmonious_dictionary = double('harmonious_dictionary')
+    #   configuration.stub(:harmonious_dictionary){ @double_harmonious_dictionary }
+    #   @double_harmonious_dictionary.stub(:use_remote_server){ false }
+    #   Rails.stub(:configuration){configuration}
+    # end
 
     it 'should validate for harmonious' do
       post.errors[:title].should == ['不能含有敏感词']
