@@ -13,34 +13,23 @@ end
 
 class Post < ActiveRecord::Base
   extend HarmoniousDictionary::ModelAdditions
-  validate_harmonious_of :title
-  profanity_filter! :body
-  profanity_filter  :note
+  validate_harmonious_of :title,:body
 end
 
 describe HarmoniousDictionary::ModelAdditions do
   let(:post) { @post = Post.create title:'戴秉国在中国',body:'戴秉国在中国',note:'戴秉国在中国' }
 
   describe 'use local' do
-    # before(:each) do
-    #   configuration = double("configuration")
-    #   @double_harmonious_dictionary = double('harmonious_dictionary')
-    #   configuration.stub(:harmonious_dictionary){ @double_harmonious_dictionary }
-    #   @double_harmonious_dictionary.stub(:use_remote_server){ false }
-    #   Rails.stub(:configuration){configuration}
-    # end
-
     it 'should validate for harmonious' do
       post.errors[:title].should == ['不能含有敏感词']
     end
 
-    it 'should filter! any harmonious words' do
-      post.body.should == '***在中国'
+    it 'should have error on title' do
+      post.errors[:body].should == ['不能含有敏感词']
     end
 
-    it 'should filter harmonious words but not change original content' do
-      post.note_clean.should  == '***在中国'
-      post.note.should == '***在中国'
+    it 'should filter! any harmonious words' do
+      HarmoniousDictionary.clean(post.body).should == '***在中国'
     end
   end
 
