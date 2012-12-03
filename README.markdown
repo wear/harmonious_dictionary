@@ -10,17 +10,36 @@
 
 ### 使用
 
-首先你需要准备敏感词字库，和谐宝典已经为你准备好了，你可以到 <https://github.com/downloads/wear/harmonious_dictionary/dictionaries.zip> 下载，请解压然后把里面文件放在 *config/harmonious_dictionary*，然后运行 `rake harmonious_dictionary:generate` 生成敏感词库文件。有了敏感词库以后，你可以
+<pre>
+validate_harmonious_of *attr_names
+</pre>
 
 * 检查输入是否包含敏感词 `HarmoniousDictionary.clean?(your_input)`
 * 检查包含的敏感词 `HarmoniousDictionary.harmonious_words(your_input)`
-* 替换包含的敏感词为* `HarmoniousDictionary.clean(your_input)`* 
+* 替换包含的敏感词为* `HarmoniousDictionary.clean(your_input)`
 
-**ruby 1.9下使用**
+### 安装
+
+准备Gemfile
+<pre>
+gem harmonious_dictionary
+</pre>
+
+创建必要的配置文件
+<pre>
+rails g harmonious_dictionary:setup
+</pre>
+
+然后你需要准备敏感词字库，如果你已经有自己的敏感词库，请把中文和英文词对应复制到项目目录`config/harmonious_dictionary/`下的**chinese_dictionary.txt**和**english_dictionary.txt**。如果还没有自己的词库，就用和谐宝典预备的好了，到 <https://github.com/downloads/wear/harmonious_dictionary/dictionaries.zip> 下载，解压，并替换
+
+最后需要生成序列化的词库，运行
+<pre>
+rake harmonious_dictionary:generate
+</pre>
 
 **ruby 1.8下使用**
 
-对于rails2系列，请使用1.8的branch，把harmonious_dictionary目录放在 *vendor/plugin* 目录下
+对于rails2系列，请使用1.8的branch，以plugin形式使用。敏感词库的配置都在插件harmonious_dictionary里配置
 
 ### 原理
 
