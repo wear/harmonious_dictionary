@@ -28,6 +28,11 @@ describe HarmoniousDictionary::ModelAdditions do
       post.errors[:body].should == ['不能含有敏感词']
     end
 
+    it 'should allow empty input value' do
+      p = Post.create body:'戴秉国在中国',note:'戴秉国在中国'
+      post.errors[:body].should == ['不能含有敏感词']
+    end
+
     it 'should filter! any harmonious words' do
       HarmoniousDictionary.clean(post.body).should == '***在中国'
     end
