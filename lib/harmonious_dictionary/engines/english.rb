@@ -1,6 +1,8 @@
+require 'set'
+
 module HarmoniousDictionary
   module RsegEngine
-    LETTER_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a
+    LETTER_SYMBOLS = Set.new ('a'..'z').to_a + ('A'..'Z').to_a
 
     class English < Engine
       def initialize
