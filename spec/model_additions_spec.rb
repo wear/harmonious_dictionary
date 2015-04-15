@@ -13,7 +13,7 @@ end
 
 class Post < ActiveRecord::Base
   extend HarmoniousDictionary::ModelAdditions
-  validate_harmonious_of :title,:body
+  validate_harmonious_of [:title,:body], model: :post
 end
 
 describe HarmoniousDictionary::ModelAdditions do
