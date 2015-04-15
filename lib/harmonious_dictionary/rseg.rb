@@ -18,9 +18,11 @@ module HarmoniousDictionary
     include RsegEngine
     include RsegFilter
     attr_writer :input
+    attr_accessor :model
     
     class << self    
-      def segment(input)
+      def segment(input, model)
+        HarmoniousDictionary::Rseg.instance.model = model
         HarmoniousDictionary::Rseg.instance.input = input
         HarmoniousDictionary::Rseg.instance.segment
       end
@@ -44,9 +46,6 @@ module HarmoniousDictionary
     def initialize
       @input = ''
       @words = [] 
-      @chinese_dictionary_path = chinese_dictionary_path
-      init_engines
-      init_filters
     end
 
     def remote_url
@@ -54,6 +53,7 @@ module HarmoniousDictionary
     end
     
     def segment
+      init_operate
       @words = []
       @input.chars.each do |origin|
         char = filter(origin)
@@ -65,6 +65,13 @@ module HarmoniousDictionary
     end
 
     private
+
+    def init_operate
+      @chinese_dictionary_path = chinese_dictionary_path
+      init_engines
+      init_filters
+    end
+
     def filter(char)
       result = char
       @filters.each do |klass|
@@ -160,11 +167,19 @@ module HarmoniousDictionary
     end
 
     def english_yaml_path
-      File.join(Rails.root, 'config','harmonious_dictionary','harmonious_english.yml')
+      if model.nil?
+        File.join(Rails.root, 'config','harmonious_dictionary','harmonious_english.yml')
+      else
+        File.join(Rails.root, 'config','harmonious_dictionary',"#{model}_harmonious_english.yml")
+      end
     end
 
     def chinese_dictionary_path
-      File.join(Rails.root, 'config','harmonious_dictionary','harmonious.hash')
+      if model.nil?
+        File.join(Rails.root, 'config','harmonious_dictionary','harmonious.hash')
+      else
+        File.join(Rails.root, 'config','harmonious_dictionary',"#{model}_harmonious.hash")
+      end
     end
   end
 end
