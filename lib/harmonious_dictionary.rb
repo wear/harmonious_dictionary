@@ -7,8 +7,8 @@ require "harmonious_dictionary/railtie" if defined? Rails
    
 
 module HarmoniousDictionary
-  def self.clean?(input)
-    results = HarmoniousDictionary::Rseg.segment(input)
+  def self.clean?(input, model = nil)
+    results = HarmoniousDictionary::Rseg.segment(input, model)
     results.size > 0 ? false : true
   end
 
@@ -26,14 +26,14 @@ module HarmoniousDictionary
     input
   end
 
-  def self.clean(input)
-    results = HarmoniousDictionary::Rseg.segment(input)
+  def self.clean(input, model = nil)
+    results = HarmoniousDictionary::Rseg.segment(input, model)
     results.each{|result| input.gsub! /#{result}/,self.clean_word_basic(result) }
     input
   end
 
-  def self.harmonious_words(input)
-    return HarmoniousDictionary::Rseg.segment(input)
+  def self.harmonious_words(input, model = nil)
+    return HarmoniousDictionary::Rseg.segment(input, model)
   end
 
   def self.clean_word_basic(word)
