@@ -50,10 +50,17 @@ rails g harmonious_dictionary:setup
 
 然后你需要准备敏感词字库，如果你已经有自己的敏感词库，请把中文和英文词对应复制到项目目录`config/harmonious_dictionary/`下的**chinese_dictionary.txt**和**english_dictionary.txt**。如果还没有自己的词库，就用和谐宝典预备的好了，到 <https://github.com/downloads/wear/harmonious_dictionary/dictionaries.zip> 下载，解压，并替换
 
-最后需要生成序列化的词库，运行
+最后需要生成序列化的词库，默认使用直接运行
 <pre>
-rake harmonious_dictionary:generate
+rake harmonious_dictionary:generate 
 </pre>
+将会生成 `harmonious.hash` 与 `harmonious_english.yml` 词库
+
+自定义使用运行
+<pre>
+rake harmonious_dictionary:generate model = post
+</pre>
+将会生成 `post_harmonious.hash` 与 `post_harmonious_english.yml` 词库
 
 **ruby 1.8下使用**
 
