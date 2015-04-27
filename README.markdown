@@ -8,7 +8,7 @@
 * 可以输出检测到的敏感词，请看初始
 * 简单，可根据需要方便的调整敏感词字库
 
-### 使用
+### 默认使用
 
 <pre>
 validate_harmonious_of *attr_names
@@ -17,6 +17,24 @@ validate_harmonious_of *attr_names
 * 检查输入是否包含敏感词 `HarmoniousDictionary.clean?(your_input)`
 * 检查包含的敏感词 `HarmoniousDictionary.harmonious_words(your_input)`
 * 替换包含的敏感词为* `HarmoniousDictionary.clean(your_input)`
+
+### 自定义使用
+
+你可以使用相应模型下敏感词库，例如
+
+<pre>
+validate_harmonious_of [:title, :body], model: post
+</pre>
+
+这时将会使用 `post_chinese_dictionary.hash` 与 `post_english_dictionary.yml` 敏感词库
+
+同理使用这两个敏感词库
+
+* 检查输入是否包含敏感词 `HarmoniousDictionary.clean?(your_input, 'post')`
+* 检查包含的敏感词 `HarmoniousDictionary.harmonius_words(your_input, 'post')`
+* 替换包含的敏感词为 `HarmoniousDictionary.clean(your_input, 'post')`
+
+(注：自定义使用时必须有相对应的铭感词库)
 
 ### 安装
 
