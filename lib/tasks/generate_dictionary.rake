@@ -8,8 +8,9 @@ namespace :harmonious_dictionary do
 
     puts "Processing chinese words..."
     tree = {}
+    model = ENV['model']
     process(chinese_dictionary_path, tree)
-    File.open(hash_path, "wb") {|io| Marshal.dump(tree, io)}  
+    File.open(hash_path(model), "wb") {|io| Marshal.dump(tree, io)}  
     puts 'Done'
 
     puts 'Processing english words...'
@@ -45,11 +46,18 @@ def process(path, tree)
   end
 end
 
-def hash_path
-  File.join(Rails.root, 'config','harmonious_dictionary','harmonious.hash')
+def hash_path(model = nil)
+  if model
+    File.join(Rails.root, 'config','harmonious_dictionary',"#{model}_harmonious.hash")
+  else
+    File.join(Rails.root, 'config','harmonious_dictionary','harmonious.hash')
+  end
 end
 
-def yaml_path
-  File.join(Rails.root, 'config','harmonious_dictionary','harmonious_english.yml')
+def yaml_path(model = nil)
+  if model
+    File.join(Rails.root, 'config','harmonious_dictionary',"#{model}_harmonious_english.yml")
+  else 
+    File.join(Rails.root, 'config','harmonious_dictionary','harmonious_english.yml')
+  end
 end
-
