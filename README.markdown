@@ -70,6 +70,12 @@ rake harmonious_dictionary:generate model = post
 
 不同与常规敏感词检查正则匹配，和谐宝典对输入的中文以给定敏感词字库做为分词词库做分词处理，把里里面的内容找出来。算法采用自yzhang的<https://github.com/yzhang/rseg>，和谐宝典对算法做了简化处理以提高效率。
 
+### 贡献者
+
+* [wear](https://github.com/wear)
+* [kzjeef](https://github.com/kzjeef)
+* [jyootai](https://github.com/jyootai)
+
 ### License
 
 MIT license
